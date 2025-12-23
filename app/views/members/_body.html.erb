@@ -1,0 +1,30 @@
+<table class="attr">
+  <tr>
+    <th>プロフィール画像</th>
+    <td>
+      <% if @member.profile_picture.attached? %>
+        <%= image_tag @member.profile_picture.variant(resize: "128x128") %>
+      <% end %>
+    </td>
+  </tr>
+  <tr>
+    <th>ユーザー名</th>
+    <td><%= @member.name %></td>
+  </tr>
+  <tr>
+    <th>ポイント残高</th>
+    <td><%= @member.point %></td>
+  </tr>
+  <tr>
+    <th>役割</th>
+    <td>
+      <% if @member.role == 1 %>
+        <%= "顧客" %>
+      <% elsif @member.role == 2 %>
+        <%= "店員" %>
+      <% else %>
+        <%= "管理者" %>
+      <% end %>
+    </td>
+  </tr>
+</table>
