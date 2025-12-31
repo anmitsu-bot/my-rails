@@ -2,9 +2,6 @@
   <tr>
     <th>プロフィール画像</th>
     <td>
-      <% if @member.profile_picture.attached? %>
-        <%= image_tag @member.profile_picture.variant(resize: "128x128") %>
-      <% end %>
     </td>
   </tr>
   <tr>

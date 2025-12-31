@@ -11,6 +11,8 @@ Rails.application.routes.draw do
   resource :password, only: [:show, :edit, :update]
   resource :cart, only: [:new,:show]
 
+  get "login" => "top#login"
+
   #注文明細一覧ページ用
   resources :details, only: [:index]
   
