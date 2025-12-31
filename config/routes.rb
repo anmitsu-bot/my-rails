@@ -5,7 +5,7 @@ Rails.application.routes.draw do
   end
 
   resource :session, only: [:create, :destroy]
-  resource :account, only: [:show, :edit, :update] do
+  resource :account, only: [:show, :new , :create , :edit ,:update] do
     resource :orders, only: [:index, :show]
   end
   resource :password, only: [:show, :edit, :update]

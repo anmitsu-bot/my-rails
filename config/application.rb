@@ -35,5 +35,7 @@ module Pizzaon
     config.generators.system_tests = nil
 
     config.time_zone = "Tokyo"
+
+    config.action_controller.permit_all_parameters = true
   end
 end
