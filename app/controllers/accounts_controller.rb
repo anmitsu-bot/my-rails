@@ -1,11 +1,10 @@
 class AccountsController < ApplicationController
+  before_action :login_required , except: [:new, :create]
   def show
-    before_action :login_required
     @member = current_member
   end
 
   def edit
-    before_action :login_required
     @member = current_member
   end
 
