@@ -10,7 +10,9 @@ Rails.application.routes.draw do
     resource :orders, only: [:index, :show]
   end
   resource :password, only: [:show, :edit, :update]
-  resource :cart, only: [:new,:show]
+  resource :cart, only: [:show] do
+    post :add
+  end
 
   get "login" => "top#login"
 

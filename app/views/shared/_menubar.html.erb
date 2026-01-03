@@ -4,10 +4,9 @@
     <%= menu_link_to "メニュー表", :items %>
     <% if !current_member%>
       <%= menu_link_to "ログイン", login_path %>
-    <% end %>
-    <% if current_member %>
-      <% menu_link_to "マイページ", :account %>
-      <% menu_link_to "カート", "#" %>
+    <% else %>
+      <%= menu_link_to "マイページ", :account %>
+      <%= menu_link_to "カート", :cart %>
     <% end %>
   </ul>
 </nav>

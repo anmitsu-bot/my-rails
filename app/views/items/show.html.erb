@@ -3,6 +3,9 @@
 <%= render "body" %>
 
 <% if current_member %>
+    <%= form_with url: add_cart_path, method: :post do %>
+        <%= render "cart_form"%>
+    <% end %>
 <% end %>
 
 <%= menu_link_to "<<メニュー表に戻る", :items %>
