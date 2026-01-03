@@ -17,7 +17,7 @@ Rails.application.routes.draw do
   #注文明細一覧ページ用
   resources :details, only: [:index]
   
-  #店員のルーティング
+  #店員のルーティング roleが2のとき
   namespace :staff do
     root "top#index"
     resources :orders, only: [:index, :show ] do
@@ -25,6 +25,7 @@ Rails.application.routes.draw do
     resources :stocks, only: [:index, :show]
   end
   
+  #管理者のルーティング roleが3のとき
   namespace :admin do
     root "top#index"
     resources :members , only: [:edit, :show]
