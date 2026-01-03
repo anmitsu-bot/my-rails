@@ -1,0 +1,36 @@
+<% @page_title = "メニュー表" %>
+<h1><%= @page_title %></h1>
+
+<%= form_tag :search_items, method: :get, class: "search" do %>
+    <%= text_field_tag "q", params[:q] %>
+    <%= radio_button_tag name = "category" ,"1" , false %>
+    <%= label_tag "item_category","ピザ" %>
+    <%= radio_button_tag name = "category" ,"2" ,  false %>
+    <%= label_tag "item_category","ドリンク" %>
+    <%= radio_button_tag name = "category" ,"3" ,  false %>
+    <%= label_tag "item_category","サイドメニュー" %>
+    <%= radio_button_tag name = "category" ,"0" , true %>
+    <%= label_tag "item_category","指定なし" %>
+    <%= submit_tag "検索" %>
+<% end %>
+
+<% if @items.present? %>
+  <table class="list">
+    <thead>
+      <tr>
+        <th>商品番号</th>
+        <th>商品名</th>
+      </tr>
+    </thead>
+    <tbody>
+      <% @items.each do |item| %>
+        <tr>
+          <td style="text-align: right"><%= item.id %></td>
+          <td><%= link_to item.name, item %></td>
+        </tr>
+      <% end %>
+    </tbody>
+  </table>
+<% else %>
+  <p>メニュー表がありません。</p>
+<% end %>

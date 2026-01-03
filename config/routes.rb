@@ -2,6 +2,7 @@ Rails.application.routes.draw do
   root "top#index"
   #未ログイン状態での商品検索
   resources :items,  only: [:index, :show] do
+    get "search" , on: :collection
   end
 
   resource :session, only: [:create, :destroy]
