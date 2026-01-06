@@ -13,7 +13,7 @@ Rails.application.routes.draw do
   resource :cart, only: [:show] do
     post :add
     post :zero
-    get "confirm" 
+    get "confirm" , on: :collection
   end
 
   get "login" => "top#login"

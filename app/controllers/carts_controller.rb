@@ -16,7 +16,6 @@ class CartsController < ApplicationController
     @cart  = session[:cart] || {}
     @items = Item.where(id: session[:cart].keys)
     @sum = 0
-    @use_point = false #ポイント使うか否か　あとでラジオボタンで実装
     @point_amount = 0 #使うポイント数　formをインスタンスで管理すれば楽なため
   end
 
@@ -30,6 +29,7 @@ class CartsController < ApplicationController
     @order = Order.new()
     @order.reserver = current_member
     @order.use_point = params[:mypoint]
+    @order.reserve_time = Time.now + 5.minutes
     if @order.save
       #detailのレコード作成
        @items.each do |item|
@@ -60,5 +60,5 @@ class CartsController < ApplicationController
   def zero
     session[:cart][params[:item_id]] = 0 #指定した商品の個数をゼロに
   end
-  
+
 end
