@@ -1,1 +1,24 @@
-<% @items.id %>
+<% if @items.present? %>
+  <table calss = "list">
+    <thead>
+      <tr>
+        <th>商品番号</th>
+        <th>商品名</th>
+        <th>個数</th>
+        <th>金額</th>
+     </tr>
+    </thead>
+    <tbody>
+      <% @items.each do |item| %>
+        <tr>
+          <td><%= item.id %></td>
+          <td><%= item.name %></td>
+          <td><%= session[:cart][item.id.to_s] %></td>
+          <td><%= item.price %></td>
+        </tr>
+      <% end %>
+    </tbody>
+  </table>
+<% else %>
+  <p>カートに商品が入ってません</p>
+<% end %>
