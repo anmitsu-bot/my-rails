@@ -1,6 +1,5 @@
 class CartsController < ApplicationController
   def add
-
     item_id  = params[:item_id]
     quantity = params[:quantity].to_i
 
@@ -15,6 +14,20 @@ class CartsController < ApplicationController
 
   def show
     @cart  = session[:cart] || {}
-    @items = Item.find(session[:cart].keys)
+    @items = Item.where(id: session[:cart].keys)
+    @sum = 0
+    @use_point = false
+  end
+
+  def confirm
+
+  end
+  def zero
+    session[:cart][params[:item_id]] = 0
+
+  end
+
+  def destroy
+
   end
 end

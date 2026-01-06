@@ -6,19 +6,34 @@
         <th>商品名</th>
         <th>個数</th>
         <th>金額</th>
+        <th>削除</th>
      </tr>
     </thead>
     <tbody>
       <% @items.each do |item| %>
-        <tr>
-          <td><%= item.id %></td>
-          <td><%= item.name %></td>
-          <td><%= session[:cart][item.id.to_s] %></td>
-          <td><%= item.price %></td>
-        </tr>
+        <% if session[:cart][item.id.to_s] != 0 %>
+          <tr>
+            <td><%= item.id %></td>
+            <td><%= item.name %></td>
+            <td><%= session[:cart][item.id.to_s] %></td>
+            <td><%= item.price %></td>
+            <td><%= link_to "削除", zero_cart_path(item_id: item.id), method: :post %></td>
+            <% @sum = @sum + item.price*session[:cart][item.id.to_s] %>
+          </tr>
+        <% end %>
       <% end %>
     </tbody>
   </table>
+  <h3>合計金額<%= @sum %></h3>
+  <p>使用ポイントを選んでください。 ポイント残高 <%= current_member.point %></p>
+  <%= form_for  confirm_cart_path do |form|%>
+    <div>ポイント<%= form.text_field :mypoint , value: 0, min: 0,max: current_member.point %></div>
+    <% if @sum != 0 %>
+      <div><%= form.submit "注文を確定する" %></div>
+    <% else %>
+      <p>カートに商品が入ってません</p>
+    <% end %>
+  <% end %>
 <% else %>
   <p>カートに商品が入ってません</p>
 <% end %>
