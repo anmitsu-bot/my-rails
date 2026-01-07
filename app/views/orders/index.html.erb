@@ -1,0 +1,24 @@
+<% if @order %>
+  <table class = "attr">
+    <thead>
+      <tr>
+        <th>注文番号</th>
+        <th>合計金額</th>
+        <th>受け渡し予定時間</th>
+      </tr>
+    </thead>
+    <% @orders.each do |order|%>
+      <tbody>
+        <tr>
+          <td><% order.id %></td>
+          <td><% order.amount %></td>
+          <td><% order.reserve_time %></td>
+        </tr>
+      </tbody>
+    <% end %>
+  </table>
+<% else %>
+  <p>注文が存在しません</p>
+<% end %>
+
+<p><%= menu_link_to "アカウント詳細へ戻る", :account %></p>

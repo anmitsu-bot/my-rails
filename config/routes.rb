@@ -7,7 +7,7 @@ Rails.application.routes.draw do
 
   resource :session, only: [:create, :destroy]
   resource :account, only: [:show, :new , :create , :edit ,:update] do
-    resource :orders, only: [:index, :show]
+    resources :orders, only: [:index]
   end
   resource :password, only: [:show, :edit, :update]
   resource :cart, only: [:show] do
@@ -17,6 +17,7 @@ Rails.application.routes.draw do
   end
 
   get "login" => "top#login"
+
 
   #注文明細一覧ページ用
   resources :details, only: [:index]
