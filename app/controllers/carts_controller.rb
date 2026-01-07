@@ -19,42 +19,39 @@ class CartsController < ApplicationController
     @point_amount = 0 #使うポイント数　formをインスタンスで管理すれば楽なため
   end
 
-  def confirm #注文確定 orderとdetailを作る
-    @sum = 0
-    @items = Item.where(id: session[:cart].keys)
+  def confirm
+  @items = Item.where(id: session[:cart].keys)
+  @member = current_member
+  @sum = 0
 
-    @member = current_member
-    
-    #orderのレコード作成
-    @order = Order.new()
-    @order.reserver = current_member
-    @order.use_point = params[:mypoint]
-    @order.reserve_time = Time.now + 5.minutes
-    if @order.save
-      #detailのレコード作成
-       @items.each do |item|
-         @detail = Detail.new()
-         @detail.bought = item
-         @detail.base = @order
-         @detail.number = session[:cart][item.id]
+  @order = Order.new(
+    reserver: @member,
+    use_point: params[:mypoint].to_i,
+    reserve_time: 5.minutes.from_now
+  )
 
-         if @detail.save && session[:cart][item.id] != 0
-          @sum = @sum + item.price*session[:cart][item.id]
-         else
-          render "show"
-         end
-       end
-       redirect_to :root, notice: "注文が完了しました。"
+  @items.each do |item|
+    quantity = session[:cart][item.id.to_s].to_i
+    next if quantity.zero?
+
+      Detail.create!(
+        bought: item,
+        base: @order,
+        number: quantity
+      )
+
+      @sum += item.price * quantity
     end
+
     @order.amount = @sum - @order.use_point
     @order.save
 
-    @member.point = @member.point - params[:mypoint]
+    @member.point -= @order.use_point
     @member.save
 
-    #カートを初期化
-    session[:cart] ||= {}
-    session[:cart][item_id] ||= 0
+    session[:cart] = {}
+
+    redirect_to root_path, notice: "注文が完了しました"
   end
 
   def zero

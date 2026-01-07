@@ -1,6 +1,7 @@
 class OrdersController < ApplicationController
   def index
-    @orders = Order.where("member_id = ?", "#{current_member}")
+    @member = Member.find(current_member.id)
+    @orders = @member.orders
   end
 
 end

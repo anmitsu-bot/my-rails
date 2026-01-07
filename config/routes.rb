@@ -7,20 +7,21 @@ Rails.application.routes.draw do
 
   resource :session, only: [:create, :destroy]
   resource :account, only: [:show, :new , :create , :edit ,:update] do
-    resources :orders, only: [:index]
+    resources :orders, only: [:index] do
+      #注文明細一覧ページ用
+      resources :details, only: [:index]
+    end
   end
   resource :password, only: [:show, :edit, :update]
   resource :cart, only: [:show] do
     post :add
     post :zero
-    get "confirm" , on: :collection
+    post :confirm
   end
 
   get "login" => "top#login"
 
 
-  #注文明細一覧ページ用
-  resources :details, only: [:index]
   
   #店員のルーティング roleが2のとき
   namespace :staff do
