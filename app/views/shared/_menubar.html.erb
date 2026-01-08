@@ -7,6 +7,12 @@
     <% else %>
       <%= menu_link_to "マイページ", :account %>
       <%= menu_link_to "カート", :cart %>
+      <% if current_member.role == 3 %>
+        <%= menu_link_to "管理TOP", :admin_root %>
+      <% end %>
+      <% if current_member.role == 2 %>
+        <%= menu_link_to "店員TOP", :staff_root %>
+      <% end %>
     <% end %>
   </ul>
 </nav>

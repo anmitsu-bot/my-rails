@@ -34,7 +34,7 @@ Rails.application.routes.draw do
   #管理者のルーティング roleが3のとき
   namespace :admin do
     root "top#index"
-    resources :members , only: [:edit, :show]
+    resources :members
     resources :stocks 
     resources :items do
       get "sales" ,on: :collection
