@@ -1,0 +1,30 @@
+<% @page_title = "会員の編集" %>
+
+<h1><%= @page_title %></h1>
+
+<div class="toolbar"><%= link_to "会員一覧に戻る", :admin_members %></div>
+
+<%= form_for @member, url: admin_members_path do |form| %>
+  <table class = "attr" >
+    <tr>
+        <th><%= form.label :new_profile_picture, "プロフィール画像" %></th>
+        <td>
+        </td>
+    </tr>
+    <tr>
+        <th><%= form.label :name, "ユーザー名" %></th>
+        <td><%= form.text_field :name  %></td>
+    </tr>
+    <tr>
+        <th><%= form.label :role, "権限" %></th>
+        <td><%= form.number_field :role , value: 2, min: 1, max: 3%></td>
+    </tr>
+    <% if @member.new_record? %>
+        <tr>
+            <th><%= form.label :password, "パスワード" %></th>
+            <td><%= form.text_field :password %></td>
+        </tr>
+    <% end %>
+  </table>
+  <div><%= form.submit %></div>
+<% end %>

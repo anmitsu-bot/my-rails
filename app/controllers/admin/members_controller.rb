@@ -10,6 +10,7 @@ class Admin::MembersController < Admin::Base
     end
     def create
         @member = Member.new(params[:member])
+        @member.point = 0
         if @member.save
             redirect_to [:admin, @member], notice: "会員を登録しました。"
         else
