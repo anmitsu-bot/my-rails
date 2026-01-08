@@ -1,0 +1,28 @@
+<% @page_title = "商品の新規作成" %>
+
+<h1><%= @page_title %></h1>
+
+<div class="toolbar"><%= link_to "商品一覧に戻る", :admin_items %></div>
+
+<%= form_for @item, as: "item", url: admin_items_path, method: :post do |form| %>
+  <table class = "attr" >
+    <tr>
+        <th><%= form.label :new_profile_picture, "プロフィール画像" %></th>
+        <td>
+        </td>
+    </tr>
+    <tr>
+        <th><%= form.label :name, "商品名" %></th>
+        <td><%= form.text_field :name  %></td>
+    </tr>
+    <tr>
+        <th><%= form.label :price, "金額" %></th>
+        <td><%= form.number_field :price , value: 100, min: 0, max: 10000%></td>
+    </tr>
+    <tr>
+        <th><%= form.label :explanation, "説明" %></th>
+        <td><%= form.text_area :explanation , rows: 5, cols: 45%></td>
+    </tr>
+  </table>
+  <div><%= form.submit %></div>
+<% end %>
