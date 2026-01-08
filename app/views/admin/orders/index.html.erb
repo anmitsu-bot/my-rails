@@ -1,0 +1,42 @@
+<% @page_title = "注文情報一覧" %>
+<h1><%= @page_title %></h1>
+
+<%= form_tag sales_admin_orders_path, method: :get, class: "sales" do %>
+    <%= submit_tag "売り上げを見る" %>
+<% end %>
+
+<% if @orders.present? %>
+  <table class="list">
+    <thead>
+      <tr>
+        <th>注文番号</th>
+        <th>値段</th>
+        <th>受け取り予定時間</th>
+        <th>編集</th>
+      </tr>
+    </thead>
+    <tbody>
+      <% @orders.each do |order| %>
+        <% @all_amount = 0 %>
+        <% if order.amount != nil%>
+          <% @all_amount = @all_amount+order.amount %>
+        <% end %>
+        <tr>
+          <td style="text-align: right"><%= link_to order.id ,[:admin, order] %></td>
+          <td><%= order.amount %></td>
+          <td><%= order.reserve_time %></td>
+          <td>
+            <%= link_to "編集", [:edit, :admin, order] %> |
+              <%= link_to "削除", [:admin, order], method: :delete,
+              data: { confirm: "本当に削除しますか?" } %>
+          </td>
+        </tr>
+      <% end %>
+    </tbody>
+  </table>
+<% else %>
+  <p>注文がありません。</p>
+<% end %>
+<h3>合計金額<%= @all_amount %></h3>
+
+<p><%= menu_link_to "管理topへ戻る", :admin_root %></p>

@@ -1,5 +1,8 @@
 <% @page_title = "商品情報詳細" %>
 <h1><%= @page_title %></h1>
+
+<div class="toolbar"><%= link_to "商品の編集", :edit_admin_item %></div>
+
 <%= render "body" %>
 
 <%= menu_link_to "<<メニュー表に戻る", :admin_items %>

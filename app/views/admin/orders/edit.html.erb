@@ -1,0 +1,46 @@
+<% @page_title = "注文の編集" %>
+<h1><%= @page_title %></h1>
+
+<div class="toolbar"><%= link_to "注文一覧に戻る", :admin_orders %></div>
+
+<%= form_for [:admin, @order] do |form| %>
+  <table class="attr">
+    <tr>
+      <th>注文番号</th>
+      <td><%= @order.id %></td>
+    </tr>
+    <tr>
+      <th><%= form.label :amount, "金額" %></th>
+      <td><%= form.number_field :amount,value: @order.amount, min: 0, max: 50000 %></td>
+    </tr>
+    <tr>
+      <th>使用ポイント</th>
+      <td>
+        <%= @order.use_point %>
+      </td>
+    </tr>
+    <tr>
+      <th>作成状況</th>
+      <td>
+        <%if @order.create_start == true%>
+          すでに作成開始
+        <% else %>
+          作成未開始
+        <% end %>
+      </td>
+    </tr>
+    <tr>
+      <th>受け渡し状況</th>
+      <td>
+        <%if @order.reserved == true%>
+          受け渡し完了
+        <% else %>
+          受け渡し未完了
+        <% end %>
+      </td>
+    </tr>
+  </table>
+  <div><%= form.submit %></div>
+<% end %>
+
+<p><%= link_to "注文詳細へ戻る", [:admin, @order]%></p>

@@ -4,7 +4,7 @@
 
 <div class="toolbar"><%= link_to "会員一覧に戻る", :admin_members %></div>
 
-<%= form_for @member, url: admin_member_path(@member) do |form| %>
+<%= form_for [:admin, @member] do |form| %>
   <table class = "attr" >
     <tr>
         <th><%= form.label :new_profile_picture, "プロフィール画像" %></th>
@@ -28,3 +28,5 @@
   </table>
   <div><%= form.submit %></div>
 <% end %>
+
+<p><%= link_to "会員詳細へ戻る", [:admin, @member]%></p>

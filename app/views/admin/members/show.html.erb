@@ -1,6 +1,7 @@
 <% @page_title = "会員情報詳細" %>
 <h1><%= @page_title %></h1>
 
+<div class="toolbar"><%= link_to "会員の編集", :edit_admin_member %></div>
 
 <%= render "members/body" %>
 <p><%= menu_link_to "一覧へ戻る", :admin_members %></p>

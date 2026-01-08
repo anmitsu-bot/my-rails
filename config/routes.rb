@@ -36,6 +36,10 @@ Rails.application.routes.draw do
     root "top#index"
     resources :members
     resources :stocks 
+    resources :orders do
+      get "sales" ,on: :collection
+
+    end
     resources :items do
       get "sales" ,on: :collection
     end
