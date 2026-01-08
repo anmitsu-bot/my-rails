@@ -7,7 +7,7 @@ Rails.application.routes.draw do
 
   resource :session, only: [:create, :destroy]
   resource :account, only: [:show, :new , :create , :edit ,:update] do
-    resources :orders, only: [:index] do
+    resources :orders do
       #注文明細一覧ページ用
       resources :details, only: [:index]
     end

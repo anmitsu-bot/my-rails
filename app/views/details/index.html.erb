@@ -1,2 +1,29 @@
-<h1>Details#index</h1>
-<p>Find me in app/views/details/index.html.erb</p>
+<% @page_title = "注文明細一覧" %>
+<h1><%= @page_title %></h1>
+<% if @details.present? %>
+  <table class = "attr">
+    <thead>
+      <tr>
+        <th>注文明細番号</th>
+        <th>注文商品</th>
+        <th>金額</th>
+      </tr>
+    </thead>
+    <% @details.each do |detail|%>
+      <% @d_number = @d_number + 1 %>
+      <tbody>
+        <tr>
+          <td><%= @d_number %></td>
+          <td><%= detail.bought.name %></td>
+          <td><%= detail.bought.price %></td>
+        </tr>
+      </tbody>
+    <% end %>
+  </table>
+
+  <p>使用ポイント<%= @order.use_point %></p>
+<% else %>
+  <p>注文が存在しません</p>
+<% end %>
+
+<p><%= menu_link_to "注文一覧へ戻る", account_orders_path %></p>

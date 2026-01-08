@@ -1,3 +1,5 @@
+<% @page_title = "注文一覧" %>
+<h1><%= @page_title %></h1>
 <% if @orders.present? %>
   <table class = "attr">
     <thead>
@@ -10,7 +12,7 @@
     <% @orders.each do |order|%>
       <tbody>
         <tr>
-          <td><%= menu_link_to order.id, "#" %></td>
+          <td><%= menu_link_to order.id, account_order_details_path(order_id: order.id) %></td>
           <td><%= order.amount %></td>
           <td><%= order.reserve_time %></td>
         </tr>
