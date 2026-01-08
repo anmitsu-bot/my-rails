@@ -1,0 +1,17 @@
+<% @page_title = "在庫情報詳細" %>
+<h1><%= @page_title %></h1>
+
+<div class = "toolbar"><%= link_to "在庫編集はこちら", [:edit, :admin, @stock ]%></div>
+
+  <table class="attr">
+    <tr>
+      <th>商品名</th>
+      <td><%= @stock.from.name %></td>
+    </tr>
+    <tr>
+      <th><%= "在庫数" %></th>
+      <td><%= @stock.number %></td>
+    </tr>
+  </table>
+
+<p><%= link_to "在庫一覧へ戻る", [:admin, :stocks] %></p>

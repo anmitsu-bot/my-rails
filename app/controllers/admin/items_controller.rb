@@ -18,6 +18,8 @@ class Admin::ItemsController < Admin::Base
     end
     def create
         @item = Item.new(params[:item])
+        @stock = @item.stocks.new(number: 10)
+        @stocks.save
         if @item.save
             redirect_to [:admin, @item], notice: "商品を登録しました。"
         else

@@ -1,0 +1,24 @@
+<% @page_title = "在庫情報一覧" %>
+<h1><%= @page_title %></h1>
+
+
+<table class = "attr">
+  <thead>
+    <tr>
+      <th>商品名</th>
+      <th>在庫</th>
+      <th>編集</th>
+    </tr>
+  </thead>
+  <% @stocks.each do |stock|%>
+    <tbody>
+      <tr>
+        <td><%= link_to stock.from.name, [:admin, stock] %></td>
+        <td><%= stock.number %></td>
+        <td><%= link_to "編集", [:edit, :admin, stock]%></td>
+      </tr>
+    </tbody>
+  <% end %>
+</table>
+
+<p><%= link_to "管理TOPへ戻る", :admin_root %></p>
