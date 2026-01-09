@@ -7,18 +7,22 @@
     <tr>
       <th>商品名</th>
       <th>在庫</th>
-      <th>編集</th>
+      <th>在庫追加</th>
     </tr>
   </thead>
-  <% @stocks.each do |stock|%>
-    <tbody>
+  <tbody>
+    <% @stocks.each do |stock|%>
       <tr>
-        <td><%= link_to stock.from.name, [:admin, stock] %></td>
+        <td><%= stock.from.name %></td>
         <td><%= stock.number %></td>
-        <td><%= link_to "編集", [:edit, :admin, stock]%></td>
+        <td>
+          <%= form_for [:admin, stock]  do |form| %>
+            <%= form.number_field  :number , value: 0, min: 0, max: 100 %><%= form.submit %>
+          <% end %>
+        </td>
       </tr>
-    </tbody>
-  <% end %>
+    <% end %>
+  </tbody>
 </table>
 
-<p><%= link_to "管理TOPへ戻る", :admin_root %></p>
+<p><%= link_to "管理TOPへ戻る", :admin_stocks %></p>

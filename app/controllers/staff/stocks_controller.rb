@@ -2,16 +2,15 @@ class Staff::StocksController < ApplicationController
   def index
     @stocks = Stock.all
   end
-  def edit
-    @stock = Stock.find(params[:id])
-  end
   def update
     @stock = Stock.find(params[:id])
-    @stock..assign_attributes(params[:stock])
-    if @order.save
-      redirect_to [:edit,:staff, @order], notice: "在庫情報を更新しました。"
+
+    add_number = params[:stock][:number].to_i
+    @stock.number += add_number
+    if @stock.save
+      redirect_to [:staff, :stocks], notice: "在庫情報を更新しました。"
     else
-      render "edit"
+      render "index"
     end
   end
 end

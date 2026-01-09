@@ -1,2 +1,28 @@
-<h1>Staff::Stocks#index</h1>
-<p>Find me in app/views/staff/stocks/index.html.erb</p>
+<% @page_title = "在庫情報一覧" %>
+<h1><%= @page_title %></h1>
+
+
+<table class = "attr">
+  <thead>
+    <tr>
+      <th>商品名</th>
+      <th>在庫</th>
+      <th>在庫追加</th>
+    </tr>
+  </thead>
+  <tbody>
+    <% @stocks.each do |stock|%>
+      <tr>
+        <td><%= stock.from.name %></td>
+        <td><%= stock.number %></td>
+        <td>
+          <%= form_for [:staff, stock]  do |form| %>
+            <%= form.number_field  :number , value: 0, min: 0, max: 100 %><%= form.submit %>
+          <% end %>
+        </td>
+      </tr>
+    <% end %>
+  </tbody>
+</table>
+
+<p><%= link_to "管理TOPへ戻る", :staff_stocks %></p>

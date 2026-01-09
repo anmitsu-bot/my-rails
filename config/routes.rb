@@ -28,7 +28,7 @@ Rails.application.routes.draw do
     root "top#index"
     resources :orders, only: [:index, :show ,:edit, :update] do
     end
-    resources :stocks, only: [:index, :show]
+    resources :stocks, only: [:index, :update]
   end
   
   #管理者のルーティング roleが3のとき
