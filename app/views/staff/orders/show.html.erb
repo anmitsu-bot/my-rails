@@ -1,0 +1,63 @@
+<% @page_title = "注文情報詳細" %>
+<h1><%= @page_title %></h1>
+
+<div class = "toolbar"><%= menu_link_to "作成、受け渡し状況を編集する", [:edit, :staff, @order] %></div>
+
+<table class="attr">
+  <tr>
+    <th>注文番号</th>
+    <td><%= @order.id %></td>
+  </tr>
+  <tr>
+    <th>注文者</th>
+    <td><%= @order.reserver.name %></td>
+  </tr>
+  <tr>
+    <th>金額</th>
+    <td><%= @order.amount %></td>
+  </tr>
+  <tr>
+    <th>使用ポイント</th>
+    <td>
+      <%= @order.use_point %>
+    </td>
+  </tr>
+  <tr>
+    <th>作成状況</th>
+    <td>
+      <%if @order.create_start == true%>
+        すでに作成開始
+      <% else %>
+        作成未開始
+      <% end %>
+    </td>
+  </tr>
+  <tr>
+    <th>受け渡し状況</th>
+    <td>
+      <%if @order.reserved == true%>
+        受け渡し完了
+      <% else %>
+        受け渡し未完了
+      <% end %>
+    </td>
+  </tr>
+</table>
+
+<table class="attr">
+  <tr>
+    <th>注文明細</th>
+    <th>商品名</th>
+    <th>料金（税込）</th>
+  </tr>
+  <% @details.each do |detail| %>
+    <tr>
+      <td><%= detail.id %></td>
+      <td><%= detail.bought.name %></td>
+      <td><%= detail.bought.price %></td>
+    </tr>
+  <% end %>
+   
+</table>
+
+<p><%= menu_link_to "注文一覧へ戻る", :staff_orders %></p>

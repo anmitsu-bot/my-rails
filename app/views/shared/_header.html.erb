@@ -10,6 +10,8 @@
 <%= 
 if controller.kind_of?(Admin::Base)
   render "shared/admin_menubar"
+elsif controller.kind_of?(Staff::Base)
+  render "shared/staff_menubar"
 else
   render "shared/menubar" 
 end

@@ -11,6 +11,7 @@ class SessionsController < ApplicationController
 
     def destroy
         session.delete(:member_id)
+        session[:cart] = {}
         redirect_to :root
     end
 end

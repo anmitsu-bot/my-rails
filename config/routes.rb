@@ -26,7 +26,7 @@ Rails.application.routes.draw do
   #店員のルーティング roleが2のとき
   namespace :staff do
     root "top#index"
-    resources :orders, only: [:index, :show ] do
+    resources :orders, only: [:index, :show ,:edit, :update] do
     end
     resources :stocks, only: [:index, :show]
   end
