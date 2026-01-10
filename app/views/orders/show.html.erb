@@ -1,7 +1,5 @@
-<% @page_title = "注文情報詳細" %>
+<% @page_title = "注文明細" %>
 <h1><%= @page_title %></h1>
-
-<div class = "toolbar"><%= menu_link_to "作成、受け渡し状況を編集する", [:edit, :staff, @order] %></div>
 
 <table class="attr">
   <tr>
@@ -70,4 +68,4 @@
    
 </table>
 
-<p><%= menu_link_to "注文一覧へ戻る", :staff_orders %></p>
+<p><%= menu_link_to "注文一覧へ戻る", :account_orders %></p>

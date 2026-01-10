@@ -10,17 +10,22 @@
         <th>作成開始</th>
         <th>作成状況</th>
         <th>受け渡し状況</th>
+        <th>削除項目</th>
       </tr>
     </thead>
     <% @orders.each do |order|%>
       <tbody>
         <tr>
-          <td><%= menu_link_to order.id, account_order_details_path(order_id: order.id) %></td>
+          <td><%= menu_link_to order.id, account_order_path(order) %></td>
           <td><%= order.amount %></td>
           <td><%= order.reserve_time %></td>
           <td><%= order.create_start %></td>
           <td><%= order.created %></td>
           <td><%= order.reserved %></td>
+          <% if order.created == false %>
+            <td><%= link_to "削除", account_order_path(order) , method: :delete,
+            data: { confirm: "本当に削除しますか?" } %></td>
+          <% end %>
         </tr>
       </tbody>
     <% end %>

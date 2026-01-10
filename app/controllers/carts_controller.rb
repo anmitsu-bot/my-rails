@@ -32,6 +32,7 @@ class CartsController < ApplicationController
 
   @items.each do |item|
     quantity = session[:cart][item.id.to_s].to_i
+
     next if quantity.zero?
 
       Detail.create!(
@@ -47,6 +48,7 @@ class CartsController < ApplicationController
     @order.save
 
     @member.point -= @order.use_point
+    @member.point += @order.amount/100
     @member.save
 
     session[:cart] = {}
