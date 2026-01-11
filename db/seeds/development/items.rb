@@ -9,9 +9,8 @@ explains = ["Pizzaonの定番マルゲリータ、この一枚で今日をちょ
         category: 1,
         explanation: explains[idx],
     )
-    @item.stocks.create(
-        number: 10
-    )
+    @item.create_stock(number: 10)
+    
 end
 
 dnames = ["コーラ", "サイダー", "カルピス"]
@@ -22,7 +21,5 @@ dnames = ["コーラ", "サイダー", "カルピス"]
         category: 2,
         explanation: "ドリンクです。"
     )
-    @item.stocks.create(
-        number: 10
-    )
+    @item.create_stock(number: 10)
 end

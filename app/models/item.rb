@@ -1,6 +1,6 @@
 class Item < ApplicationRecord
     has_many :details, dependent: :destroy
-    has_many :stocks, dependent: :destroy
+    has_one :stock, dependent: :destroy
 
     class << self
         def search(query, v_cate)

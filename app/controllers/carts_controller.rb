@@ -7,6 +7,11 @@ class CartsController < ApplicationController
     session[:cart] ||= {}
     session[:cart][item_id] ||= 0
 
+    @item = Item.find(params[:item_id])
+    @stock = @item.stock
+    @stock_number = @stock&.number.to_i
+
+
     # カートの商品IDに対する数量を追加
     session[:cart][item_id] += quantity
     redirect_to :items, notice: "商品をカートに追加しました。"
@@ -20,40 +25,52 @@ class CartsController < ApplicationController
   end
 
   def confirm
-  @items = Item.where(id: session[:cart].keys)
-  @member = current_member
-  @sum = 0
 
-  @order = Order.new(
-    reserver: @member,
-    use_point: params[:mypoint].to_i,
-    reserve_time: 5.minutes.from_now
-  )
+    @save_whether = false #セーブできるかどうか
+    @items = Item.where(id: session[:cart].keys)
+    @member = current_member
+    @sum = 0
 
-  @items.each do |item|
-    quantity = session[:cart][item.id.to_s].to_i
+    @order = Order.new(
+      reserver: @member,
+      use_point: params[:mypoint].to_i,
+      reserve_time: 5.minutes.from_now
+    )
 
-    next if quantity.zero?
+    @items.each do |item|
+      quantity = session[:cart][item.id.to_s].to_i
 
-      Detail.create!(
-        bought: item,
-        base: @order,
-        number: quantity
-      )
+      if quantity != 0
 
-      @sum += item.price * quantity
+        @detail = Detail.new(
+          bought: item,
+          base: @order,
+          number: quantity
+        )
+
+      
+        if @detail.save
+        else
+          @save_whether = false
+        end
+
+        @sum += item.price * quantity
+      end
     end
 
-    @order.amount = @sum - @order.use_point
-    @order.save
+    if save_whether = true
+      @order.amount = @sum - @order.use_point
+      @order.save
 
-    @member.point -= @order.use_point
-    @member.point += @order.amount/100
-    @member.save
 
-    session[:cart] = {}
+      @member.point -= @order.use_point
+      @member.point += @order.amount/100
+      @member.save
 
-    redirect_to root_path, notice: "注文が完了しました"
+      session[:cart] = {}
+
+      redirect_to root_path, notice: "注文が完了しました"
+    end
   end
 
   def zero
