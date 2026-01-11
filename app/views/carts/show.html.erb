@@ -1,4 +1,5 @@
 <% if @items.present? %>
+  <%= render "shared/errors", obj: @order if @order.present? %>
   <table calss = "list">
     <thead>
       <tr>

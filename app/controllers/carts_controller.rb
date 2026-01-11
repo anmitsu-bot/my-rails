@@ -25,8 +25,7 @@ class CartsController < ApplicationController
   end
 
   def confirm
-
-    @save_whether = false #セーブできるかどうか
+    all_saved = true
     @items = Item.where(id: session[:cart].keys)
     @member = current_member
     @sum = 0
@@ -39,39 +38,40 @@ class CartsController < ApplicationController
 
     @items.each do |item|
       quantity = session[:cart][item.id.to_s].to_i
+      next if quantity == 0
 
-      if quantity != 0
+      @detail = Detail.new(
+        bought: item,
+        base: @order,
+        number: quantity
+      )
 
-        @detail = Detail.new(
-          bought: item,
-          base: @order,
-          number: quantity
-        )
-
-      
-        if @detail.save
-        else
-          @save_whether = false
-        end
-
+      if @detail.save
         @sum += item.price * quantity
+      else
+        all_saved = false
+        # 👇 ここが正解
+        @detail.errors.full_messages.each do |msg|
+          @order.errors.add(:base, msg)
+        end
       end
     end
 
-    if save_whether = true
-      @order.amount = @sum - @order.use_point
-      @order.save
-
-
-      @member.point -= @order.use_point
-      @member.point += @order.amount/100
-      @member.save
-
-      session[:cart] = {}
-
-      redirect_to root_path, notice: "注文が完了しました"
-    end
+  unless all_saved
+    render :show
+    return
   end
+
+  @order.amount = @sum - @order.use_point
+  @order.save
+
+  @member.point -= @order.use_point
+  @member.point += @order.amount / 100
+  @member.save
+
+  session[:cart] = {}
+  redirect_to root_path, notice: "注文が完了しました"
+end
 
   def zero
     session[:cart][params[:item_id]] = 0 #指定した商品の個数をゼロに
