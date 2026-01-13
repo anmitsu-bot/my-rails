@@ -25,10 +25,9 @@ class CartsController < ApplicationController
   end
 
   def confirm
-    all_saved = true
-    @items = Item.where(id: session[:cart].keys)
+    @items  = Item.where(id: session[:cart].keys)
     @member = current_member
-    @sum = 0
+    @sum    = 0
 
     @order = Order.new(
       reserver: @member,
@@ -36,42 +35,49 @@ class CartsController < ApplicationController
       reserve_time: 5.minutes.from_now
     )
 
+    # Order単体のバリデーション
+    unless @order.valid?
+      render :show
+      return
+    end
+
+    details = []
+
     @items.each do |item|
       quantity = session[:cart][item.id.to_s].to_i
       next if quantity == 0
 
-      @detail = Detail.new(
+      detail = Detail.new(
         bought: item,
         base: @order,
         number: quantity
       )
 
-      if @detail.save
-        @sum += item.price * quantity
-      else
-        all_saved = false
-        # 👇 ここが正解
-        @detail.errors.full_messages.each do |msg|
+      unless detail.valid?
+        detail.errors.full_messages.each do |msg|
           @order.errors.add(:base, msg)
         end
+        render :show
+        return
       end
+
+      details << detail
+      @sum += item.price * quantity
     end
 
-  unless all_saved
-    render :show
-    return
+    @order.amount = @sum - @order.use_point
+
+    # 保存フェーズ
+    @order.save!
+    details.each(&:save!)
+
+    @member.point -= @order.use_point
+    @member.point += @order.amount / 100
+    @member.save!
+
+    session[:cart] = {}
+    redirect_to root_path, notice: "注文が完了しました"
   end
-
-  @order.amount = @sum - @order.use_point
-  @order.save
-
-  @member.point -= @order.use_point
-  @member.point += @order.amount / 100
-  @member.save
-
-  session[:cart] = {}
-  redirect_to root_path, notice: "注文が完了しました"
-end
 
   def zero
     session[:cart][params[:item_id]] = 0 #指定した商品の個数をゼロに

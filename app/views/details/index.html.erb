@@ -7,6 +7,7 @@
         <th>注文明細番号</th>
         <th>注文商品</th>
         <th>金額</th>
+        <th>個数</th>
       </tr>
     </thead>
     <% @details.each do |detail|%>
@@ -16,6 +17,7 @@
           <td><%= @d_number %></td>
           <td><%= detail.bought.name %></td>
           <td><%= detail.bought.price %></td>
+          <td><%= detail.number %></td>
         </tr>
       </tbody>
     <% end %>

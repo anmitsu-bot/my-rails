@@ -59,12 +59,14 @@
     <th>注文明細</th>
     <th>商品名</th>
     <th>料金（税込）</th>
+    <th>個数</th>
   </tr>
   <% @details.each do |detail| %>
     <tr>
       <td><%= detail.id %></td>
       <td><%= detail.bought.name %></td>
       <td><%= detail.bought.price %></td>
+      <td><%= detail.number %></td>
     </tr>
   <% end %>
    

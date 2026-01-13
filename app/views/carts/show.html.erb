@@ -29,7 +29,7 @@
   <p>使用ポイントを選んでください。 ポイント残高 <%= current_member.point %></p>
   <% if @sum != 0 %>
     <%= form_with  url: confirm_cart_path, method: :post, local: true  do |form|%>
-      <div>ポイント<%= form.text_field :mypoint , value: 0, min: 0,max: current_member.point %></div>
+      <div>ポイント<%= form.number_field :mypoint , value: 0, min: 0,max: 1000 %></div>
       <div><%= form.submit "注文を確定する" %></div>
     <% end %>
   <% else %>
