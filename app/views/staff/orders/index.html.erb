@@ -12,6 +12,7 @@
         <th>作成開始</th>
         <th>作成状況</th>
         <th>受け渡し状況</th>
+        <th>作成開始ボタン</th>
       </tr>
     </thead>
     <tbody>
@@ -30,6 +31,7 @@
           <td><%= order.create_start %></td>
           <td><%= order.created %></td>
           <td><%= order.reserved %></td>
+          <td><%= button_to "作成開始ボタン", orderc_staff_order_path(order) , method: :patch %></td>
         </tr>
       <% end %>
     </tbody>

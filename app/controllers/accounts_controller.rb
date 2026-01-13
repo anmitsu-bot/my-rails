@@ -11,11 +11,19 @@ class AccountsController < ApplicationController
   def update
     @member = current_member
     @member.assign_attributes(params[:account])
-      if @member.save
-        redirect_to :account, notice: "アカウント情報を更新しました。"
-      else
-        render "edit"
+
+    unless @member.valid?
+      @member.errors.full_messages.each do |msg|
+        @member.errors.add(:member, msg)
       end
+      render :edit
+      return
+    end
+    if @member.save
+      redirect_to :account, notice: "アカウント情報を更新しました。"
+    else
+      render "edit"
+    end
   end
   def create
     @member = Member.new(params[:account])

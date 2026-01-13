@@ -24,6 +24,9 @@ Rails.application.routes.draw do
   namespace :staff do
     root "top#index"
     resources :orders, only: [:index, :show ,:edit, :update] do
+      member do
+        patch :orderc
+      end
     end
     resources :stocks, only: [:index, :update]
   end

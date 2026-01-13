@@ -20,4 +20,24 @@ class Staff::OrdersController < Staff::Base
       render "edit"
     end
   end
+  def orderc
+    @order = Order.find(params[:id])
+    @order.create_start = true
+
+    @order.details.each do |detail|
+      stock = detail.bought.stock
+      stock.number -= detail.number
+
+      unless stock.save
+        render :index
+        return
+      end
+    end
+
+    if @order.save
+      redirect_to [:staff, :orders], notice: "作成を開始しました。"
+    else
+      render :index
+    end
+  end
 end

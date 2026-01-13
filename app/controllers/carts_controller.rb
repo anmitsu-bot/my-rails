@@ -31,7 +31,7 @@ class CartsController < ApplicationController
 
     @order = Order.new(
       reserver: @member,
-      use_point: params[:mypoint].to_i,
+      use_point: params[:use_point],
       reserve_time: 5.minutes.from_now
     )
 

@@ -3,6 +3,20 @@ class Member < ApplicationRecord
     has_many :orders, dependent: :destroy
 
     attr_accessor :current_password
-    validates :password, presence: { if: :current_password }
-    
+    validates :password, presence: { if: :current_password },
+        format: {
+            with: /\A[A-Za-z]*\z/,
+            message: "に数字を含めることはできません"
+        },
+        length: { minimum: 1, maximum: 9, 
+        }
+
+    validates :name, presence: true,
+        format: {
+            with: /\A[A-Za-z]*\z/,
+            message: "に数字を含めることはできません"
+        },
+        length: { minimum: 1, maximum: 9, 
+        },
+        uniqueness: { case_sensitive: false }
 end
