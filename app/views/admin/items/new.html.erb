@@ -4,6 +4,8 @@
 
 <div class="toolbar"><%= link_to "商品一覧に戻る", :admin_items %></div>
 
+<%= render "shared/errors", obj: @item %>
+
 <%= form_for @item, as: "item", url: admin_items_path, method: :post do |form| %>
   <table class = "attr" >
     <tr>

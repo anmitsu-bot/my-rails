@@ -6,7 +6,7 @@ class Member < ApplicationRecord
     validates :password, presence: { if: :current_password },
         format: {
             with: /\A[A-Za-z]*\z/,
-            message: "に数字を含めることはできません"
+            message: "に数字、ひらがな、カタカナ、漢字を含めることはできません"
         },
         length: { minimum: 1, maximum: 9, 
         }
@@ -14,7 +14,7 @@ class Member < ApplicationRecord
     validates :name, presence: true,
         format: {
             with: /\A[A-Za-z]*\z/,
-            message: "に数字を含めることはできません"
+            message: "に数字、ひらがな、カタカナ、漢字を含めることはできません"
         },
         length: { minimum: 1, maximum: 9, 
         },

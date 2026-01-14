@@ -4,6 +4,8 @@
 
 <div class="toolbar"><%= link_to "会員一覧に戻る", :admin_members %></div>
 
+<%= render "shared/errors", obj: @member %>
+
 <%= form_for [:admin, @member] do |form| %>
   <table class = "attr" >
     <tr>

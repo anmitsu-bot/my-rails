@@ -42,6 +42,7 @@ Rails.application.routes.draw do
     end
     resources :items do
       get "sales" ,on: :collection
+      get "search" , on: :collection
     end
   end
 end

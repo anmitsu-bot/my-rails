@@ -1,7 +1,7 @@
 <% @page_title = "商品情報一覧" %>
 <h1><%= @page_title %></h1>
 
-<%= form_tag :search_items, method: :get, class: "search" do %>
+<%= form_tag  [:search, :admin, :items], method: :get, class: "search" do %>
     <%= text_field_tag "q", params[:q] %>
     <%= radio_button_tag name = "category" ,"1" , false %>
     <%= label_tag "item_category","ピザ" %>

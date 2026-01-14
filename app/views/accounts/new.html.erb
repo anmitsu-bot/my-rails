@@ -4,6 +4,8 @@
 
 <div class="toolbar"><%= link_to "topに戻る", :root %></div>
 
+<%= render "shared/errors", obj: @member %>
+
 <%= form_for @member, as: "account", url: :account do |form| %>
   <%= render "shared/member_form", form: form %>
   <div><%= form.submit %></div>

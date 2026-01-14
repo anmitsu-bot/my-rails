@@ -1,7 +1,7 @@
 Member.create(
     name: "Taro",
-    point:  0,
+    point:  100,
     role:  3 ,
-    password: "asagao!",
-    password_confirmation: "asagao!"
+    password: "pizzaon",
+    password_confirmation: "pizzaon"
 )

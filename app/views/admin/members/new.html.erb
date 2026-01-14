@@ -3,6 +3,8 @@
 
 <div class="toolbar"><%= link_to "会員一覧に戻る", :admin_members %></div>
 
+<%= render "shared/errors", obj: @member %>
+
 <%= form_for @member, as: "member", url: admin_members_path, method: :post do |form| %>
   <table class = "attr" >
     <tr>
