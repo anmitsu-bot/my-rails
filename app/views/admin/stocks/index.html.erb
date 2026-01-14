@@ -2,6 +2,11 @@
 <h1><%= @page_title %></h1>
 
 
+<% if flash[:alert] %>
+  <p class="error"><%= flash[:alert] %></p>
+<% end %>
+
+
 <table class = "attr">
   <thead>
     <tr>
@@ -17,7 +22,7 @@
         <td><%= stock.number %></td>
         <td>
           <%= form_for [:admin, stock]  do |form| %>
-            <%= form.number_field  :number , value: 0, min: 0, max: 100 %><%= form.submit %>
+            <%= form.number_field  :number  %><%= form.submit %>
           <% end %>
         </td>
       </tr>

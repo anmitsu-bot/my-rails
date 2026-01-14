@@ -11,7 +11,7 @@ class Item < ApplicationRecord
         },
         uniqueness: { case_sensitive: false }
 
-    validates :price, precense: true,
+    validates :price, presence: true,
         numericality: {
             only_integer: true,
             greater_than_or_equal_to: 0,
@@ -19,7 +19,7 @@ class Item < ApplicationRecord
         }
 
     validates :explanation, presence: true,
-        length: {minimum: 0, maximmum: 100}
+        length: {minimum: 0, maximum: 100}
 
     class << self
         def search(query, v_cate)

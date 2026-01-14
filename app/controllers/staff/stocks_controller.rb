@@ -10,7 +10,7 @@ class Staff::StocksController < ApplicationController
     if @stock.save
       redirect_to [:staff, :stocks], notice: "在庫情報を更新しました。"
     else
-      render "index"
+      redirect_to [:staff, :stocks], alert: "在庫の更新に失敗しました。"
     end
   end
 end
