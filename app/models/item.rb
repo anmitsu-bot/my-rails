@@ -17,6 +17,12 @@ class Item < ApplicationRecord
             greater_than_or_equal_to: 0,
             less_than_or_equal_to: 2000
         }
+    validates :category, presence: true,
+        numericality: {
+            only_integer: true,
+            greater_than_or_equal_to: 1,
+            less_than_or_equal_to: 3
+        }
 
     validates :explanation, presence: true,
         length: {minimum: 0, maximum: 100}

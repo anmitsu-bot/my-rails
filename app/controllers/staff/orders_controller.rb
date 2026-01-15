@@ -40,4 +40,23 @@ class Staff::OrdersController < Staff::Base
       render :index
     end
   end
+
+  def ordercd
+    @order = Order.find(params[:id])
+    @order.created = true
+    if @order.save
+      redirect_to [:staff, :orders], notice: "作成を完了しました。"
+    else
+      render :index
+    end
+  end
+  def orderr
+    @order = Order.find(params[:id])
+    @order.reserved = true
+    if @order.save
+      redirect_to [:staff, :orders], notice: "受け渡し完了しました。"
+    else
+      render :index
+    end
+  end
 end

@@ -26,6 +26,8 @@ Rails.application.routes.draw do
     resources :orders, only: [:index, :show ,:edit, :update] do
       member do
         patch :orderc
+        patch :ordercd
+        patch :orderr
       end
     end
     resources :stocks, only: [:index, :update]

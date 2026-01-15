@@ -9,7 +9,13 @@ class Member < ApplicationRecord
             message: "に数字、ひらがな、カタカナ、漢字を含めることはできません"
         },
         length: { minimum: 1, maximum: 9, 
-        }
+        } ,on: :create
+
+    validates :point,presence: true,
+      numericality: {
+        only_integer: true,
+        greater_than_or_equal_to: 0
+    }
 
     validates :name, presence: true,
         format: {
