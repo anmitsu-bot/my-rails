@@ -18,8 +18,7 @@ class Admin::ItemsController < Admin::Base
     end
     def create
         @item = Item.new(params[:item])
-        @stock = @item.stocks.new(number: 10)
-        @stocks.save
+        @item.build_stock(number: @item.stock_number)
         if @item.save
             redirect_to [:admin, @item], notice: "商品を登録しました。"
         else
@@ -29,6 +28,8 @@ class Admin::ItemsController < Admin::Base
     def update
         @item = Item.find(params[:id])
         @item.assign_attributes(params[:item])
+        @item.stock.number = @item.stock_number
+        @item.stock.save
         if @item.save
             redirect_to [:admin, @item], notice: "商品を更新しました。"
         else

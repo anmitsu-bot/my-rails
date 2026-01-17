@@ -29,6 +29,10 @@
         <th><%= form.label :explanation, "説明" %></th>
         <td><%= form.text_area :explanation , rows: 5, cols: 45%></td>
     </tr>
+    <tr>
+        <th><%= form.label :stock_number, "在庫数" %></th>
+        <td><%= form.number_field :stock_number ,value: @item.stock.number, min: 0, max: 1000%></td>
+    </tr>
   </table>
   <div><%= form.submit %></div>
 <% end %>

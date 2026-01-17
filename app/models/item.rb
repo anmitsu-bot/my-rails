@@ -2,10 +2,12 @@ class Item < ApplicationRecord
     has_many :details, dependent: :destroy
     has_one :stock, dependent: :destroy
 
+    attr_accessor :stock_number
+
     validates :name, presence: true,
         format: {
             with: /\A[A-Za-zぁ-んァ-ヶ亜-熙ー]*\z/,
-            message: "に数字を含めることはできません"
+            message: "に数字,空白,スペースを含めることはできません"
         },
         length: { minimum: 1, maximum: 19, 
         },
@@ -15,7 +17,7 @@ class Item < ApplicationRecord
         numericality: {
             only_integer: true,
             greater_than_or_equal_to: 0,
-            less_than_or_equal_to: 2000
+            less_than_or_equal_to: 10000
         }
     validates :category, presence: true,
         numericality: {
@@ -26,6 +28,8 @@ class Item < ApplicationRecord
 
     validates :explanation, presence: true,
         length: {minimum: 0, maximum: 100}
+
+    validates :stock_number, presence: true
 
     class << self
         def search(query, v_cate)
