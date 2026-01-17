@@ -10,7 +10,6 @@ explains = ["Pizzaonの定番マルゲリータ、この一枚で今日をちょ
         explanation: explains[idx],
     )
     @item.create_stock(number: 10)
-    
 end
 
 dnames = ["コーラ", "サイダー", "カルピス"]

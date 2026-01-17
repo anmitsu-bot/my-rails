@@ -42,6 +42,7 @@ class CartsController < ApplicationController
     end
 
     details = []
+    stocks = []
 
     @items.each do |item|
       quantity = session[:cart][item.id.to_s].to_i
@@ -53,6 +54,8 @@ class CartsController < ApplicationController
         number: quantity
       )
 
+      item.stock.number = item.stock.number - quantity
+
       unless detail.valid?
         detail.errors.full_messages.each do |msg|
           @order.errors.add(:base, msg)
@@ -61,6 +64,7 @@ class CartsController < ApplicationController
         return
       end
 
+      stocks << item.stock
       details << detail
       @sum += item.price * quantity
     end
@@ -70,6 +74,7 @@ class CartsController < ApplicationController
     # 保存フェーズ
     @order.save!
     details.each(&:save!)
+    stocks.each(&:save!)
 
     @member.point -= @order.use_point
     @member.point += @order.amount / 100

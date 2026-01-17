@@ -7,9 +7,9 @@ class Order < ApplicationRecord
       numericality: {
         only_integer: true,
         greater_than_or_equal_to: 0
-    }
+    }, on: :payment
 
-    validate :point_cannot_exceed_reserver_point
+    validate :point_cannot_exceed_reserver_point, on: :payment
 
     private def point_cannot_exceed_reserver_point
         return if reserver.nil?

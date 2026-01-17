@@ -9,10 +9,8 @@
         <th>値段</th>
         <th>受け取り予定時間</th>
         <th>編集</th>
-        <th>作成開始</th>
         <th>作成状況</th>
         <th>受け渡し状況</th>
-        <th>作成開始ボタン</th>
         <th>作成完了ボタン</th>
         <th>受け渡し完了ボタン</th>
       </tr>
@@ -30,10 +28,8 @@
           <td>
             <%= link_to "編集", [:edit, :staff, order] %>
           </td>
-          <td><%= order.create_start %></td>
           <td><%= order.created %></td>
           <td><%= order.reserved %></td>
-          <td><%= button_to "作成開始ボタン", orderc_staff_order_path(order) , method: :patch %></td>
           <td><%= button_to "作成完了ボタン", ordercd_staff_order_path(order) , method: :patch %></td>
           <td><%= button_to "受け渡し完了ボタン", orderr_staff_order_path(order) , method: :patch %></td>
         </tr>

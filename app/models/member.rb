@@ -3,13 +3,13 @@ class Member < ApplicationRecord
     has_many :orders, dependent: :destroy
 
     attr_accessor :current_password
-    validates :password, presence: { if: :current_password },
+    validates :password, presence: { if: -> { current_password.present? } },
         format: {
             with: /\A[A-Za-z]*\z/,
             message: "に数字、ひらがな、カタカナ、漢字を含めることはできません"
         },
-        length: { minimum: 1, maximum: 9, 
-        } ,on: :create
+        length: { minimum: 1, maximum: 9,
+        },on: [:create, :password_update]
 
     validates :point,presence: true,
       numericality: {

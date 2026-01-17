@@ -27,6 +27,7 @@ class AccountsController < ApplicationController
   end
   def create
     @member = Member.new(params[:account])
+    @member.point = 0
     if @member.save
       redirect_to :root, notice: "会員を登録しました。"
     else

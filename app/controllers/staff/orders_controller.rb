@@ -20,31 +20,11 @@ class Staff::OrdersController < Staff::Base
       render "edit"
     end
   end
-  def orderc
-    @order = Order.find(params[:id])
-    @order.create_start = true
-
-    @order.details.each do |detail|
-      stock = detail.bought.stock
-      stock.number -= detail.number
-
-      unless stock.save
-        render :index
-        return
-      end
-    end
-
-    if @order.save
-      redirect_to [:staff, :orders], notice: "作成を開始しました。"
-    else
-      render :index
-    end
-  end
 
   def ordercd
     @order = Order.find(params[:id])
     @order.created = true
-    if @order.save
+    if @order.save(context: :status_update)
       redirect_to [:staff, :orders], notice: "作成を完了しました。"
     else
       render :index
@@ -53,7 +33,7 @@ class Staff::OrdersController < Staff::Base
   def orderr
     @order = Order.find(params[:id])
     @order.reserved = true
-    if @order.save
+    if @order.save(context: :status_update)
       redirect_to [:staff, :orders], notice: "受け渡し完了しました。"
     else
       render :index
