@@ -25,7 +25,6 @@ Rails.application.routes.draw do
     root "top#index"
     resources :orders, only: [:index, :show ,:edit, :update] do
       member do
-        patch :orderc
         patch :ordercd
         patch :orderr
       end
@@ -36,7 +35,10 @@ Rails.application.routes.draw do
   #管理者のルーティング roleが3のとき
   namespace :admin do
     root "top#index"
-    resources :members
+    resources :members do
+      get "passedit", on: :member
+      patch :p_update, on: :member
+    end
     resources :stocks 
     resources :orders do
       get "sales" ,on: :collection

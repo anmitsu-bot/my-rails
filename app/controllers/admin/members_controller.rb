@@ -29,6 +29,29 @@ class Admin::MembersController < Admin::Base
             render "edit"
         end
     end
+    def passedit
+        @member = Member.find(params[:id])
+    end
+    def p_update
+        @member = Member.find(params[:id])
+        current_password = params[:member][:current_password]
+        if current_password.present?
+            if @member.authenticate(current_password)
+                @member.assign_attributes(password: params[:member][:password])
+                if @member.save(context: :password_update)
+                    redirect_to [:admin, @member], notice: "パスワードを変更しました。"
+                else
+                    render "passedit"
+                end
+            else
+                @member.errors.add(:current_password, :wrong)
+                render "passedit"
+            end
+        else
+            @member.errors.add(:current_password, :empty)
+            render "passedit"
+        end
+    end
     def destroy
         @member = Member.find(params[:id])
         @member.destroy

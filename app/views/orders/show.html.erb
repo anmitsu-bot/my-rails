@@ -1,6 +1,9 @@
 <% @page_title = "注文明細" %>
 <h1><%= @page_title %></h1>
 
+<div class = "toolbar"><%= link_to "注文の削除", account_order_path(@order) , method: :delete,
+            data: { confirm: "本当に削除しますか?" } %></div>
+
 <table class="attr">
   <tr>
     <th>注文番号</th>

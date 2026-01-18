@@ -14,7 +14,7 @@ class PasswordsController < ApplicationController
     if current_password.present?
       if @member.authenticate(current_password)
         @member.assign_attributes(params[:account])
-        if @member.save
+        if @member.save(context: :password_update)
           redirect_to :account, notice: "パスワードを変更しました。"
         else
           render "edit"

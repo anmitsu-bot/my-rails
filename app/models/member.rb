@@ -3,7 +3,7 @@ class Member < ApplicationRecord
     has_many :orders, dependent: :destroy
 
     attr_accessor :current_password
-    validates :password, presence: { if: -> { current_password.present? } },
+    validates :password, presence: true,
         format: {
             with: /\A[A-Za-z]*\z/,
             message: "に数字、ひらがな、カタカナ、漢字を含めることはできません"
