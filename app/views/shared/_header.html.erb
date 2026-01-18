@@ -1,18 +1,21 @@
 <h1><%= "PIZZA ON" %></h1>
+
 <% if current_member %>
   <ul class="account-menu">
     <%= menu_link_to current_member.name + "さん", :account %>
     <%= menu_link_to "ログアウト", :session,
         method: :delete, data: { confirm: "ログアウトしますか？"} %>
   </ul>
-<% end %>
 
-<%= 
-if controller.kind_of?(Admin::Base)
-  render "shared/admin_menubar"
-elsif controller.kind_of?(Staff::Base)
-  render "shared/staff_menubar"
-else
-  render "shared/menubar" 
-end
-%>
+  <%=
+    if current_member.role == 3
+      render "shared/admin_menubar"
+    elsif current_member.role == 2
+      render "shared/staff_menubar"
+    else
+      render "shared/menubar"
+    end
+  %>
+<% else %>
+  <%= render "shared/menubar" %>
+<% end %>
