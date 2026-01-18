@@ -2,7 +2,7 @@
 <h1><%= @page_title %></h1>
 
 <%= form_tag sales_admin_orders_path, method: :get, class: "sales" do %>
-    <%= submit_tag "売り上げを見る" %>
+    <%= submit_tag "売り上げ一覧" %>
 <% end %>
 
 <% if @orders.present? %>
@@ -35,8 +35,8 @@
     </tbody>
   </table>
 <% else %>
-  <p>注文がありません。</p>
+  <p>売り上げなし！</p>
 <% end %>
 <h3>合計金額<%= @all_amount %></h3>
 
-<p><%= menu_link_to "管理topへ戻る", :admin_root %></p>
+<p><%= menu_link_to "注文一覧へ戻る", [:admin, :orders]%></p>

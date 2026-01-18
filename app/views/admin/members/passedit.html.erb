@@ -1,7 +1,7 @@
-<% @page_title = "顧客のパスワードの変更" %>
+<% @page_title = "顧客アカウントのパスワードの変更" %>
 <h1><%= @page_title %></h1>
 
-<div class="toolbar"><%= link_to "会員情報に戻る", [:admin, @member] %></div>
+<div class="toolbar"><%= link_to "アカウント詳細に戻る", [:admin, @member] %></div>
 
 <%= form_for @member,
     url: p_update_admin_member_path(@member),

@@ -68,24 +68,27 @@ class CartsController < ApplicationController
       details << detail
       @sum += item.price * quantity
     end
-
-    @order.amount = @sum - @order.use_point
+    if @order.use_point != nil
+      @order.amount = @sum - @order.use_point
+    end
 
     # 保存フェーズ
-    @order.save!
-    details.each(&:save!)
-    stocks.each(&:save!)
+    if @order.save
+      details.each(&:save!)
+      stocks.each(&:save!)
 
-    @member.point -= @order.use_point
-    @member.point += @order.amount / 100
-    @member.save!
+      @member.point -= @order.use_point
+      @member.point += @order.amount / 100
+      @member.save!
 
-    session[:cart] = {}
-    redirect_to root_path, notice: "注文が完了しました"
+      session[:cart] = {}
+      redirect_to root_path, notice: "注文が完了しました"
+    end
   end
 
   def zero
     session[:cart][params[:item_id]] = 0 #指定した商品の個数をゼロに
+    redirect_to cart_path, notice: "注文が削除されました。"
   end
 
 end

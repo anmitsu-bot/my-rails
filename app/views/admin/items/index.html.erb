@@ -1,4 +1,4 @@
-<% @page_title = "商品情報一覧" %>
+<% @page_title = "商品一覧" %>
 <h1><%= @page_title %></h1>
 
 <%= form_tag  [:search, :admin, :items], method: :get, class: "search" do %>
@@ -14,7 +14,7 @@
     <%= submit_tag "検索" %>
 <% end %>
 
-<div class="toolbar"><%= link_to "商品の新規登録", :new_admin_item %></div>
+<div class="toolbar"><%= link_to "商品の新規作成", :new_admin_item %></div>
 
 <% if @items.present? %>
   <table class="list">
@@ -40,5 +40,5 @@
     </tbody>
   </table>
 <% else %>
-  <p>メニュー表がありません。</p>
+  <p>条件に一致する商品がありません。</p>
 <% end %>

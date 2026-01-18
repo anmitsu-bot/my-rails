@@ -1,7 +1,7 @@
-<% @page_title = "会員の新規作成" %>
+<% @page_title = "アカウントの新規作成" %>
 <h1><%= @page_title %></h1>
 
-<div class="toolbar"><%= link_to "会員一覧に戻る", :admin_members %></div>
+<div class="toolbar"><%= link_to "アカウント一覧に戻る", :admin_members %></div>
 
 <%= render "shared/errors", obj: @member %>
 
@@ -22,7 +22,7 @@
     </tr>
     <tr>
         <th><%= form.label :point, "ポイント残高" %></th>
-        <td><%= form.number_field :point ,value: 0, min: 0, max: 1000 %></td>
+        <td><%= form.number_field :point ,value: 0, min: 0, max: 10000 %></td>
     </tr>
     <% if @member.new_record? %>
         <tr>

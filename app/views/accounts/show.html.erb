@@ -1,10 +1,10 @@
-<% @page_title = "マイアカウント" %>
+<% @page_title = "顧客マイページ" %>
 <h1><%= @page_title %></h1>
 
 <ul class= "tolbar">
-    <%= menu_link_to "アカウント情報の処理", :edit_account %>
-    <%= menu_link_to "パスワードの変更" , :edit_password %>
-    <%= menu_link_to "注文情報はこちら", account_orders_path %>
+    <%= menu_link_to "アカウント情報の編集", :edit_account %>
+    <%= menu_link_to "パスワードの編集" , :edit_password %>
+    <%= menu_link_to "注文一覧はこちら", account_orders_path %>
 </ul>
 
 <%= render "members/body" %>

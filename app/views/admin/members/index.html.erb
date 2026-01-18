@@ -1,7 +1,7 @@
-<% @page_title = "会員情報一覧" %>
+<% @page_title = "アカウント一覧" %>
 <h1><%= @page_title %></h1>
 
-<div class="toolbar"><%= link_to "会員の新規登録", :new_admin_member %></div>
+<div class="toolbar"><%= link_to "アカウントの新規作成", :new_admin_member %></div>
 
 <% if @member %>
   <table class = "attr" >
@@ -17,7 +17,7 @@
       <% @member.each do |member| %>
       <tr>
         <td><%= menu_link_to member.id, [:admin, member] %></td>
-        <td><%= member.name %></td>
+        <td><%= menu_link_to member.name,[:admin, member]   %></td>
         <td><%= member.role %></td>
         <td>
           <%= link_to "編集", [:edit, :admin, member] %> |

@@ -1,8 +1,9 @@
 <% @page_title = "注文明細" %>
 <h1><%= @page_title %></h1>
-
-<div class = "toolbar"><%= link_to "注文の削除", account_order_path(@order) , method: :delete,
+<% if @order.created == false %>
+  <div class = "toolbar"><%= link_to "注文の削除", account_order_path(@order) , method: :delete,
             data: { confirm: "本当に削除しますか?" } %></div>
+<% end %>
 
 <table class="attr">
   <tr>
@@ -21,16 +22,6 @@
     <th>使用ポイント</th>
     <td>
       <%= @order.use_point %>
-    </td>
-  </tr>
-  <tr>
-    <th>作成開始状況</th>
-    <td>
-      <%if @order.create_start == true%>
-        すでに作成開始
-      <% else %>
-        作成未開始
-      <% end %>
     </td>
   </tr>
   <tr>

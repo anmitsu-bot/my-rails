@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[7.0].define(version: 2025_12_23_062432) do
+ActiveRecord::Schema[7.0].define(version: 2026_01_18_131737) do
   create_table "details", force: :cascade do |t|
     t.integer "order_id", null: false
     t.integer "item_id", null: false
@@ -46,7 +46,7 @@ ActiveRecord::Schema[7.0].define(version: 2025_12_23_062432) do
     t.boolean "created", default: false
     t.boolean "reserved", default: false
     t.datetime "reserve_time", null: false
-    t.integer "use_point"
+    t.integer "use_point", default: 0, null: false
     t.integer "amount"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false

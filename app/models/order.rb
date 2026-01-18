@@ -3,13 +3,14 @@ class Order < ApplicationRecord
     has_many :details, dependent: :destroy
 
 
-    validates :use_point,presence: true,
+    validates :use_point,presence: {message: "を入力してください"},
       numericality: {
         only_integer: true,
-        greater_than_or_equal_to: 0
-    }, on: :payment
+        greater_than_or_equal_to: 0,
+        message: "はゼロ以上の数字にしてください"
+    }
 
-    validate :point_cannot_exceed_reserver_point, on: :payment
+    validate :point_cannot_exceed_reserver_point
 
     private def point_cannot_exceed_reserver_point
         return if reserver.nil?
