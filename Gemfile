@@ -18,6 +18,9 @@ gem "sqlite3", "~> 1.4"
 # Use the Puma web server [https://github.com/puma/puma]
 gem "puma", "~> 5.0"
 
+  # Generates ER-diagrams using Graphviz, a visualization library
+  gem 'rails-erd'
+
 # Reduces boot times through caching
 gem "bootsnap", require: false
 
