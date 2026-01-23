@@ -29,7 +29,9 @@ Rails.application.routes.draw do
         patch :orderr
       end
     end
-    resources :stocks, only: [:index, :update]
+    resources :stocks, only: [:index, :update] do
+      get "search", on: :collection
+    end
   end
   
   #管理者のルーティング roleが3のとき
@@ -39,7 +41,9 @@ Rails.application.routes.draw do
       get "passedit", on: :member
       patch :p_update, on: :member
     end
-    resources :stocks 
+    resources :stocks do
+      get "search", on: :collection
+    end
     resources :orders do
       get "sales" ,on: :collection
 

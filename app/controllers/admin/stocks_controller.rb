@@ -12,4 +12,10 @@ class Admin::StocksController < Admin::Base
       redirect_to [:admin, :stocks], alert: "在庫の更新に失敗しました。"
     end
   end
+  #検索
+  def search
+    @items = Item.search(params[:q], params[:category])
+    @stocks = @items.map(&:stock)
+    render "index"
+  end
 end

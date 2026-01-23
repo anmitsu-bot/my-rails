@@ -5,6 +5,19 @@
   <p class="error"><%= flash[:alert] %></p>
 <% end %>
 
+<%= form_tag  [:search, :staff, :stocks], method: :get, class: "search" do %>
+    <%= text_field_tag "q", params[:q] %>
+    <%= radio_button_tag name = "category" ,"1" , false %>
+    <%= label_tag "item_category","ピザ" %>
+    <%= radio_button_tag name = "category" ,"2" ,  false %>
+    <%= label_tag "item_category","ドリンク" %>
+    <%= radio_button_tag name = "category" ,"3" ,  false %>
+    <%= label_tag "item_category","サイドメニュー" %>
+    <%= radio_button_tag name = "category" ,"0" , true %>
+    <%= label_tag "item_category","指定なし" %>
+    <%= submit_tag "検索" %>
+<% end %>
+
 <table class = "attr">
   <thead>
     <tr>
