@@ -19,28 +19,31 @@
     <%= submit_tag "検索" %>
 <% end %>
 
-
-<table class = "attr">
-  <thead>
-    <tr>
-      <th>商品名</th>
-      <th>在庫</th>
-      <th>在庫編集</th>
-    </tr>
-  </thead>
-  <tbody>
-    <% @stocks.each do |stock|%>
+<% if @stocks.present? %>
+  <table class = "attr">
+    <thead>
       <tr>
-        <td><%= stock.from.name %></td>
-        <td><%= stock.number %></td>
-        <td>
-          <%= form_for [:admin, stock]  do |form| %>
-            <%= form.number_field  :number  %><%= form.submit %>
-          <% end %>
-        </td>
+        <th>商品名</th>
+        <th>在庫</th>
+        <th>在庫編集</th>
       </tr>
-    <% end %>
-  </tbody>
-</table>
+    </thead>
+    <tbody>
+      <% @stocks.each do |stock|%>
+        <tr>
+          <td><%= stock.from.name %></td>
+          <td><%= stock.number %></td>
+          <td>
+            <%= form_for [:admin, stock]  do |form| %>
+              <%= form.number_field  :number  %><%= form.submit %>
+            <% end %>
+          </td>
+        </tr>
+      <% end %>
+    </tbody>
+  </table>
+<% else %>
+ <div>条件に一致する在庫が存在しません。</div>
+<% end %>
 
 <p><%= link_to "管理TOPへ戻る", :admin_stocks %></p>

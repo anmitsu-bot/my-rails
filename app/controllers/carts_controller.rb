@@ -18,7 +18,7 @@ class CartsController < ApplicationController
   end
 
   def show
-    @cart  = session[:cart] || {}
+    @cart  = session[:cart] ||= {}
     @items = Item.where(id: session[:cart].keys)
     @sum = 0
     @point_amount = 0 #使うポイント数　formをインスタンスで管理すれば楽なため
@@ -54,8 +54,6 @@ class CartsController < ApplicationController
         number: quantity
       )
 
-      item.stock.number = item.stock.number - quantity
-
       unless detail.valid?
         detail.errors.full_messages.each do |msg|
           @order.errors.add(:base, msg)
@@ -72,18 +70,28 @@ class CartsController < ApplicationController
       @order.amount = @sum - @order.use_point
     end
 
-    # 保存フェーズ
-    if @order.save
-      details.each(&:save!)
-      stocks.each(&:save!)
+    if @sum && @sum > 0
+      # 保存フェーズ
+      if @order.save
+        details.each(&:save)
 
-      @member.point -= @order.use_point
-      @member.point += @order.amount / 100
-      @member.save!
+        details.each do |detail|
+          stock = detail.bought.stock
+          stock.update!(number: stock.number - detail.number)
+        end
 
-      session[:cart] = {}
-      redirect_to root_path, notice: "注文が完了しました"
+        @member.point -= @order.use_point
+        @member.point += @order.amount / 100
+        @member.save!
+
+        session[:cart] = {}
+        redirect_to root_path, notice: "注文が完了しました"
+      end
+    else
+      flash.now[:alert] = "商品がありません"
+      render "show" 
     end
+
   end
 
   def zero
