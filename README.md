@@ -12,6 +12,7 @@ Ruby on Railsで開発したピザ注文システムです。
 - SQLite3
 - HTML / CSS
 - Git
+- docker
 
 ## 主な機能
 
@@ -33,12 +34,49 @@ Detailモデルを導入しました。
 
 ## 実行方法
 
+まず以下コードからdockerfileを作成します
+
+```
+FROM ruby:3.1.6-bullseye
+
+ENV LANG="C.UTF-8" \
+    TZ="Asia/Tokyo" \
+    RAILS_VERSION="7.0.4"
+
+RUN apt-get update && apt-get install -y vim git less && rm -rf /var/lib/apt/lists/*
+
+RUN apt-get update && apt-get install -y sqlite3 && rm -rf /var/lib/apt/lists/*
+
+RUN apt-get update && apt-get -y install build-essential && rm -rf /var/lib/apt/lists/*
+
+RUN gem install concurrent-ruby --version 1.3.4 -N
+
+RUN gem install rails --version "$RAILS_VERSION" -N
+
+RUN gem update bundler
+
+ENV RUBYOPT="-rlogger"
+
+RUN git config --global init.defaultBranch main
+
+EXPOSE 3000
+```
+上記の内容でコンテナを起動し、以下のコマンドを実行します
+
 ```bash
 git clone https://github.com/anmitsu-bot/my-rails.git
 cd my-rails
-bundle install
-rails db:migrate
-rails s -b 0.0.0.0
+
+docker build -t my-rails .
+
+docker run -d --name rails25 -p 3000:3000 my-rails
+
+docker exec -it rails25 bash
+
+bin/rails db:create
+bin/rails db:migrate
+bin/rails db:seed
+bin/rails s -b 0.0.0.0
 ```
 
 その後ブラウザで以下のポート番号にアクセス
