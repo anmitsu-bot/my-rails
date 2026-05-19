@@ -7,8 +7,8 @@ Ruby on Railsで開発したピザ注文システムです。
 
 ## 使用技術
 
-- Ruby 3.x
-- Ruby on Rails 7.x
+- Ruby 3.1.6p260
+- Ruby on Rails 7.0.10
 - SQLite3
 - HTML / CSS
 - Git
