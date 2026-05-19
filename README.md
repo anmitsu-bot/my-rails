@@ -34,7 +34,7 @@ Detailモデルを導入しました。
 
 ## 実行方法
 
-まず以下コードからdockerfileを作成します
+まず以下コードからdockerfileを作成します。
 
 ```
 FROM ruby:3.1.6-bullseye
@@ -61,7 +61,7 @@ RUN git config --global init.defaultBranch main
 
 EXPOSE 3000
 ```
-上記の内容でコンテナを起動し、以下のコマンドを実行します
+次に以下のコマンドを実行します。
 
 ```bash
 git clone https://github.com/anmitsu-bot/my-rails.git
@@ -72,6 +72,8 @@ docker build -t my-rails .
 docker run -d --name rails25 -p 3000:3000 my-rails
 
 docker exec -it rails25 bash
+
+cd ./my-rails
 
 bin/rails db:create
 bin/rails db:migrate
