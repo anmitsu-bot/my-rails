@@ -1,5 +1,3 @@
-# README
-
 # ピザの王国 Online
 
 Ruby on Railsで開発したピザ注文システムです。  
@@ -12,7 +10,7 @@ Ruby on Railsで開発したピザ注文システムです。
 
 - Ruby 3.1.6
 - Ruby on Rails 7.0.10
-- SQLite3
+- PostgreSQL
 - HTML / CSS
 - Git / GitHub
 - Docker
@@ -53,108 +51,62 @@ Detailモデルを導入しました。
 git clone https://github.com/anmitsu-bot/my-rails.git
 cd my-rails
 ```
-
----
-
-## Docker Composeによる起動方法
-
 ### コンテナ起動
-
 ```bash
 docker compose up --build
 ```
-
-※ 環境によっては以下コマンドを使用してください。
-
+### データベース作成
+コンテナ起動後、別ターミナルで実行：
 ```bash
-docker-compose up --build
+docker compose exec web rails db:create
+docker compose exec web rails db:migrate
+docker compose exec web rails db:seed
 ```
-
----
-
-## コンテナへ接続
-
-別ターミナルを開いて以下を実行します。
-
-```bash
-docker compose exec web bash
-```
-
----
-
-## データベース作成
-
-コンテナ内で以下を実行します。
-
-```bash
-rails db:create
-rails db:migrate
-rails db:seed
-```
-
----
-
-## アクセス方法
-
-ブラウザで以下へアクセスしてください。
-
-```text
+### アクセス方法
+ブラウザで以下へアクセス：
 http://localhost:3000
-```
-
----
-
-## 使用したDocker構成
 
 ### Dockerfile
-
-```dockerfile
+```
 FROM ruby:3.1.6-bullseye
-
 ENV LANG="C.UTF-8" \
     TZ="Asia/Tokyo" \
     RAILS_VERSION="7.0.4"
-
+RUN apt-get update && apt-get install -y vim git less && rm -rf /var/lib/apt/lists/*
 RUN apt-get update && apt-get install -y \
-    vim git less sqlite3 build-essential && \
-    rm -rf /var/lib/apt/lists/*
-
+    sqlite3 \
+    libpq-dev \
+    && rm -rf /var/lib/apt/lists/*
+RUN apt-get update && apt-get -y install build-essential && rm -rf /var/lib/apt/lists/*
 RUN gem install concurrent-ruby --version 1.3.4 -N
-
 RUN gem install rails --version "$RAILS_VERSION" -N
-
 RUN gem update bundler
-
 ENV RUBYOPT="-rlogger"
-
 RUN git config --global init.defaultBranch main
-
 WORKDIR /app
-
 COPY Gemfile Gemfile.lock /app/
-
 RUN bundle install
-
 COPY . /app
-
 EXPOSE 3000
-
 CMD ["rails", "server", "-b", "0.0.0.0"]
 ```
-
----
-
 ### docker-compose.yml
-
-```yaml
+```
 version: '3'
 
 services:
   web:
     build: .
-    container_name: rails25
-    volumes:
-      - .:/app
     ports:
       - "3000:3000"
+    depends_on:
+      - db
+
+  db:
+    image: postgres:15
+    environment:
+      POSTGRES_USER: postgres
+      POSTGRES_PASSWORD: postgres
+    ports:
+      - "5432:5432"
 ```
