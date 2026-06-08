@@ -6,7 +6,10 @@ ENV LANG="C.UTF-8" \
 
 RUN apt-get update && apt-get install -y vim git less && rm -rf /var/lib/apt/lists/*
 
-RUN apt-get update && apt-get install -y sqlite3 && rm -rf /var/lib/apt/lists/*
+RUN apt-get update && apt-get install -y \
+    sqlite3 \
+    libpq-dev \
+    && rm -rf /var/lib/apt/lists/*
 
 RUN apt-get update && apt-get -y install build-essential && rm -rf /var/lib/apt/lists/*
 
